@@ -1,7 +1,7 @@
 <div class=" overflow-hidden border border-gray-200 shadow sm:rounded-lg">
 
-    <livewire:tags.create' />
-
+    {{-- Create Nested Component --}}
+    {{-- @livewire('tags.create')     --}}
 
     <div class="row bg-secondary">
         {{-- Search Box --}}
@@ -55,13 +55,31 @@
                         <td class="p-4">{{ $tag->id }}</td>
                         <td class="p-4">{{ $tag->name }}</td>
                         <td class="p-4">{{ $tag->created_at }}</td>
+
+                         {{-- Nested Commponets--}}
                         <td>
+                            <div>
 
-                            {{-- Edit Button --}}
-                            {{-- @livewire('tags.edit', ['tag' => $tag], key($tag->id)) --}}
+                                {{-- Edit Button --}}
+                                
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal-{{$tag->id}}">
+                                    Update Tag
+                                </button>
+                            
+                                <!-- Modal -->
+                                <div class="modal fade" id="updateModal-{{$tag->id}}" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true" >
+                                    @livewire('tags.edit', ['tag' => $tag], key($tag->id))
+                                </div>
 
-                            <livewire:tags.edit :tag="$tag" :wire:key="'edit-tag' . $tag->id">
-                            {{-- <livewire:tags.delete :tag="$tag" :wire:key="'delete-tag' . $tag->id()">  --}}
+                                {{-- Delete Button --}}
+                                <button type="button" class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#deleteModal-{{$tag->id}}">
+                                    Delete Tag
+                                </button>
+
+                                {{-- Modal --}}
+                                <div class="modal fade" id="deleteModal-{{$tag->id}}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true" >
+                                    @livewire('tags.delete',['tag' =>$tag], key($tag->id))
+                                </div>
 
                         </td>
 
