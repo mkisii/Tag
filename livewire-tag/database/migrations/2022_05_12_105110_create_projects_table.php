@@ -13,11 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tags', function (Blueprint $table) {
+        Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
+            $table->enum('type', config('global.PROJECT_TYPES'))->default(config('global.PROJECT_TYPES')[0]);
             $table->float('version');
-            $table->string('slug');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('tag_id')->constrained('tags')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -30,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tags');
+        Schema::dropIfExists('projects');
     }
 };

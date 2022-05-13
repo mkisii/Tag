@@ -10,6 +10,7 @@ class Create extends Component
 
     public $name;
     public $slug;
+    public $version;
 
     protected $rules = [
         'name' => ['required', 'unique:tags,name', 'min:2', 'max:10']
@@ -22,7 +23,8 @@ class Create extends Component
         $tag = new Tag();
 
         $tag->name= $this->name;
-        $tag->slug = Str::slug($this->name);
+        $tag->version = $this->version;
+        $tag->slug = Str::slug($this->name . '-' . $this->version.'-' );
 
         $tag->save();  
         // dd($tag);   

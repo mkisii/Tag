@@ -16,7 +16,7 @@ class TagSeeder extends Seeder
     public function run()
     {
         //
-        DB::table('tags')->insert([
+        DB::table('')->insert([
             [
                 'name' => 'PHP',
                 'slug' => 'php',
