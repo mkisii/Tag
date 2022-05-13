@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Tag;
+use App\Http\Livewire\Project;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,10 @@ use App\Http\Livewire\Tag;
 Auth::routes();
 Route::group(['prefix'=>'tags','as'=>'tags'], function() {
      Route::get('/', Tag::class)->name('tags');
+});
+
+Route::group(['prefix'=>'projects','as'=>'projects'], function() {
+     Route::get('/', Project::class)->name('projects');
 });
 
 

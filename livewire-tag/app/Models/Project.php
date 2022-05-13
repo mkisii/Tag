@@ -6,18 +6,24 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use PhpParser\Node\Expr\Cast\String_;
 
-class Tag extends Model
+use function PHPSTORM_META\type;
+
+class Project extends Model
 {
     use HasFactory;
 
-    const  TABLE = 'tags';
+
+    const  TABLE = 'projects';
 
     protected $table = self::TABLE;
 
     protected $fillable = [
         'name',
+        'type',
         'version',
-        'slug'
+        'user_id',
+        'tag_id'
+
     ];
 
     public function name(): string_
@@ -33,9 +39,9 @@ class Tag extends Model
 
     
 
-    public function slug(): string
+    public function type(): string
     {
-        return $this->slug;
+        return $this->type;
     }
 
     public function id():int
@@ -43,18 +49,18 @@ class Tag extends Model
         return $this->id;
     }
 
-    public static function search($search)
-
+        /* Relationships */
+    public function user ()
     {
-        return empty($search) 
-        ? static::query()
-        : static::query()->where('id', 'like', '%' . $search . '%')
-        ->orwhere('name', 'like', '%'. $search . '%');
+        return $this->belongsTo(User::class);
+        
     }
 
-    public function projects ()
+
+
+    public function tags ()
     {
-        return $this->hasMany(Projects::class);
+        return $this->hasMany(Tag::class);
     }
 
 }

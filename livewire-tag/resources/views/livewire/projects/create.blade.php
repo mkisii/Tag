@@ -5,9 +5,9 @@
 
             <h2 class="text-sm  uppercase ">
                 <button class="btn btn-primary float-end test-sm"  data-bs-toggle="modal"
-                data-bs-target="#addTagModal"> Create Tag</button>
+                data-bs-target="#addProjectModal"> Create Project</button>
                 
-                Create Tag
+                Create Project
             </h2>
 
 
@@ -18,15 +18,15 @@
 
 
         </div>
-        <div wire:ignore.self class="modal fade b" id="addTagModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        <div wire:ignore.self class="modal fade b" id="addProjectModal" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-name text-primary">Create Tag</h5>
+                        <h5 class="modal-name text-primary">Create Project</h5>
                     </div>
                     <div class="modal-body">
-                        <form wire:submit.prevent="storeTagData" >
+                        <form wire:submit.prevent="storeProjectData" >
                             <div class="form-group row">
                                 <label for="name" class="text-primary">Name</label>
                                 <div class="col-9">
@@ -36,6 +36,37 @@
                                         <span class="text-denger" style="font-size: 10.5px">{{ $message }}</span>
                                     @enderror
                                 </div>
+                                
+                                <label for="name" class="text-primary">Type</label>
+                                <div class="col-9">
+                                    <select type="name" id="name" class="form-control" wire:model='type'>
+                                        @foreach (config('global.PROJECT_TYPES') as $item)
+                                            <option value="{{$item}}" >{{$item}}</option>
+                                        @endforeach
+                                    </select>
+                    
+                                    @error('type')
+                                        <span class="text-denger" style="font-size: 10.5px">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+
+                                {{-- Tag Id --}}
+                                <label for="id" class="text-primary">Tag_id</label>
+                                <div class="col-9">
+                                    <select type="name" id="name" class="form-control" wire:model='tag_id'>
+                                        @foreach ($tags as $item)
+                                            <option value="{{$item->id}}">{{$item->slug}}</option>
+                                        @endforeach
+                                    </select>
+                    
+                                    @error('type')
+                                        <span class="text-denger" style="font-size: 10.5px">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+
+                                
 
                                 <label for="version" class="text-primary">Version</label>
                                 <div class="col-9">
@@ -45,6 +76,7 @@
                                         <span class="text-denger" style="font-size: 10.5px">{{ $message }}</span>
                                     @enderror
                                 </div>
+
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-sm btn-primary" data-bs-dismiss="modal">Add

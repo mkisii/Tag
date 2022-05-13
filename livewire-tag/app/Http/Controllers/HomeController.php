@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Tag;
+use App\Models\Project;
 
 use Illuminate\Http\Request;
 
@@ -25,7 +26,8 @@ class HomeController extends Controller
     public function index()
     {
         $tags = Tag::all();
+        $projects = Project::all();
 
-        return view('home')->with('tags', $tags);
+        return view('home', ['projects' => Project::all()])->with('tags', $tags);
     }
 }
